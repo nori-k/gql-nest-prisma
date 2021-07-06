@@ -26,6 +26,7 @@
     "@nestjs/graphql": "^7.11.0",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/platform-fastify": "^7.6.18",
+    "@prisma/client": "^2.26.0",
     "apollo-server-fastify": "^2.25.2",
     "graphql": "^15.5.1",
     "graphql-tools": "^7.0.5",
