@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gql-nest-prisma #任意のコンテナ名
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - mydb
+    ports:
+      - '3000:3000'
+
+  mydb:
+    image: mysql:5.7
+    platform: linuxx86_64 # M1 Macだとこれ設定しないとちゃんと動かない
+    container_name: mysqldb
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./db/dev:/docker-entrypoint-initdb.d
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_DATABASE: mydb
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: Asia/Tokyo
+      # MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
